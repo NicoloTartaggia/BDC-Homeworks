@@ -6,6 +6,11 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+Homework1/.idea/
+Homework1/BDC/.idea
+Homework1/BDC/.gradle/
+Homework1/BDC/gradle/
+Homework1/BDC/build/
 
 # Generated files
 .idea/**/contentModel.xml
