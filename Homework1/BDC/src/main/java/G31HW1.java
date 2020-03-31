@@ -62,8 +62,9 @@ public class G31HW1 {
                     }
                     return sum;
                 });
-        System.out.println("OUTPUT:\n\n" + "VERSION WITH DETERMINISTIC PARTITIONS\n" + "Output pairs = " + count.sortByKey().collect()); // TODO - Find out how to see the result without the []
+        System.out.println("OUTPUT:\n\n" + "VERSION WITH DETERMINISTIC PARTITIONS\n" + "Output pairs = ");
 
+        count.sortByKey().collect().forEach(s -> System.out.println(s));
 
         System.out.println("VERSION WITH SPARK PARTITIONS\n" + "Most frequent class = " + "\n" + "Max partition size = ");
     }
