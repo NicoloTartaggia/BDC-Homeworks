@@ -69,7 +69,8 @@ public class G31HW1 {
                 });
         System.out.println("OUTPUT:\n\n" + "VERSION WITH DETERMINISTIC PARTITIONS\n" + "Output pairs = ");
 
-        count.sortByKey().collect().forEach(System.out::println);
+        count.sortByKey().collect().forEach(System.out::print);
+        Random randomGenerator = new Random();
 
         count1 = pairStrings
                 .flatMapToPair((document) -> {    // <-- MAP PHASE (R1)
@@ -91,10 +92,12 @@ public class G31HW1 {
                         Tuple2<Integer, Tuple2<String, String>> tuple = wc.next();
                         counts.put(tuple._2._2, 1L + counts.getOrDefault(tuple._2._2, 0L));
                     }
-
+                    //TODO :: Together with the output pairs (class, count) the algorithm must produce a special pair ("maxPartitionSize",N_max), where N_max is the max number of pairs that in Round 1 are processed by a single reducer
+                    //System.out.println(i);
                     for (Map.Entry<String, Long> e : counts.entrySet()) {
                         pairs.add(new Tuple2<>(e.getKey(), e.getValue()));
                     }
+                    //pairs.add(new Tuple2<String, Long>("partitionSize", (long)i));
                     return pairs.iterator();
                 })
                 .groupByKey()     // <-- REDUCE PHASE (R2)
@@ -106,30 +109,18 @@ public class G31HW1 {
                     return sum;
                 });
 
-        String mostFreqClass = count1.collect().stream().max(Comparator.comparing(Tuple2::_2)).get().toString();
-        System.out.println("VERSION WITH SPARK PARTITIONS\n" + "Most frequent class = " + mostFreqClass + "\n" + "Max partition size = ");
-
-        //TODO :: for the most frequent class, ties must be broken in favor of the smaller class in alphabetical order)
-        /*Comparator<Tuple2<String, Integer>> myComparator = new Comparator<Tuple2<String, Integer>>() {
-            public int compare(Tuple2 t1, Tuple2 t2) {
-                if(t1._2 > t2._2)
-                    return 1;
-                else if (t1._2 == t2._2){
-                    if (t1._1 >= t2._1)
-                        return 1;
-                    else
-                        return -1;
+        //for the most frequent class, ties must be broken in favor of the smaller class in alphabetical order
+        Comparator<Tuple2<String, Long>> tupleComparator = new Comparator<Tuple2<String, Long>>() {
+            public int compare(Tuple2<String, Long> t1, Tuple2<String, Long> t2) {
+                if (t1._2().compareTo(t2._2()) == 0) {
+                    return t2._1().compareTo(t1._1());
                 }
-                else return -1;
+                else
+                    return t1._2().compareTo(t2._2());
             }
         };
 
-        ArrayList<Tuple2<String, Integer>> test = new ArrayList<>();
-        test.add(new Tuple2<String, Integer>("Zzzz", 3055));
-        test.add(new Tuple2<String, Integer>("Horror", 3055));
-        test.forEach(System.out::println);
-        String mostFreqClassTest = test.stream().max(Comparator.comparingInt(T)).get().toString();
-        System.out.println(mostFreqClassTest);
-        */
+        String mostFreqClass = count1.collect().stream().max(tupleComparator).get().toString();
+        System.out.println("\nVERSION WITH SPARK PARTITIONS\n" + "Most frequent class = " + mostFreqClass + "\n" + "Max partition size = ");
     }
 }
