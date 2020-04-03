@@ -2,7 +2,6 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.codehaus.janino.Java;
 import scala.Tuple2;
 
 import java.io.IOException;
@@ -31,7 +30,8 @@ public class G31HW1 {
         System.out.println("INPUT:\n\n" + "** K=" + K + "\n\n" + "** DATASET: " + sc.textFile(args[1]).name() + "\n");
 
         JavaPairRDD<String, Long> count;
-        JavaPairRDD<String, Tuple2<String, Long>> count1;
+        JavaPairRDD<String, Long> count1;
+        //JavaPairRDD<String, Tuple2<String, Long>> count1;
 
         count = pairStrings
                 .flatMapToPair((document) -> {    // <-- MAP PHASE (R1) - Transform each document into a set of
@@ -87,26 +87,27 @@ public class G31HW1 {
                         Tuple2<Integer, Tuple2<String, String>> tuple = wc.next();
                         counts.put(tuple._2._2, 1L + counts.getOrDefault(tuple._2._2, 0L));
                     }
-                    // In order to be able to compute the max partition size, we use key-value pairs of type (key, (key,value)).
-                    // This structure allow us to work with both reduceByPair and keys.
-                    ArrayList<Tuple2<String, Tuple2<String, Long>>> pairs = new ArrayList<>();
+                    ArrayList<Tuple2<String, Long>> pairs = new ArrayList<>();
                     for (Map.Entry<String, Long> e : counts.entrySet()) {
-                        pairs.add(new Tuple2<>(e.getKey(), (new Tuple2<>(e.getKey(), e.getValue()))));
+                        pairs.add(new Tuple2<>(e.getKey(), e.getValue()));
                     }
-                    pairs.add(new Tuple2<>("maxPartitionSize", (new Tuple2<>("maxPartitionSize",numPairs))));
+                    // In order to be able to compute the max partition size, we add a special pair ("maxPartitionSize", N_max)
+                    pairs.add((new Tuple2<>("maxPartitionSize", numPairs)));
                     return pairs.iterator();
                 })
-                .reduceByKey((t1, t2) -> { // <-- REDUCE PHASE (R2)
-                    if (!t1._1.equals("maxPartitionSize")) {
-                        return new Tuple2<>(t1._1, t1._2 + t2._2);
-                    } else {
-                        return new Tuple2<>(t1._1, Math.max(t1._2, t2._2));
-                    }
+                .groupByKey()
+                .mapToPair((it) -> {
+                    ArrayList<Long> acc = new ArrayList<>();
+                    it._2.forEach(acc::add);
+                    if (it._1().equals("maxPartitionSize"))
+                        return new Tuple2<>(it._1(), acc.stream().mapToLong(x -> x).max().orElseThrow(NoSuchElementException::new));
+                    else
+                        return new Tuple2<>(it._1(), acc.stream().mapToLong(x -> x).sum());
                 });
 
         // For the most frequent class, ties must be broken in favor of the smaller class in alphabetical order
         System.out.println("\nVERSION WITH SPARK PARTITIONS\n" +
-                           "Most frequent class = " + count1.sortByKey().reduce((acc, value) -> ((value._2._2 > acc._2._2) ? value : acc))._2 +
-                           "\n" + "Max partition size = " + count1.filter((tuple) -> (tuple._1.equals("maxPartitionSize"))).first()._2._2);
+                           "Most frequent class = " + count1.sortByKey().reduce((acc, value) -> ((value._2 > acc._2) ? value : acc)) +
+                           "\n" + "Max partition size = " + count1.filter((tuple) -> (tuple._1.equals("maxPartitionSize"))).first()._2);
     }
 }
