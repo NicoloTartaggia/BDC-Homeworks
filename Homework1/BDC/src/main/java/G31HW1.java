@@ -31,7 +31,6 @@ public class G31HW1 {
 
         JavaPairRDD<String, Long> count;
         JavaPairRDD<String, Long> count1;
-        //JavaPairRDD<String, Tuple2<String, Long>> count1;
 
         count = pairStrings
                 .flatMapToPair((document) -> {    // <-- MAP PHASE (R1) - Transform each document into a set of
@@ -99,15 +98,16 @@ public class G31HW1 {
                 .mapToPair((it) -> {
                     ArrayList<Long> acc = new ArrayList<>();
                     it._2.forEach(acc::add);
-                    if (it._1().equals("maxPartitionSize"))
-                        return new Tuple2<>(it._1(), acc.stream().mapToLong(x -> x).max().orElseThrow(NoSuchElementException::new));
-                    else
+                    if (it._1().equals("maxPartitionSize")) {
+                        return new Tuple2<>(it._1, Collections.max(acc));
+                    } else {
                         return new Tuple2<>(it._1(), acc.stream().mapToLong(x -> x).sum());
+                    }
                 });
 
         // For the most frequent class, ties must be broken in favor of the smaller class in alphabetical order
         System.out.println("\nVERSION WITH SPARK PARTITIONS\n" +
-                           "Most frequent class = " + count1.sortByKey().reduce((acc, value) -> ((value._2 > acc._2) ? value : acc)) +
-                           "\n" + "Max partition size = " + count1.filter((tuple) -> (tuple._1.equals("maxPartitionSize"))).first()._2);
+                "Most frequent class = " + count1.sortByKey().reduce((acc, value) -> ((value._2 > acc._2) ? value : acc)) +
+                "\n" + "Max partition size = " + count1.filter((tuple) -> (tuple._1.equals("maxPartitionSize"))).first()._2);
     }
 }
