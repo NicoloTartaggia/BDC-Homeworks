@@ -29,18 +29,17 @@ public class G31HW1 {
 
         System.out.println("INPUT:\n\n" + "** K=" + K + "\n\n" + "** DATASET: " + sc.textFile(args[1]).name() + "\n");
 
-        JavaPairRDD<String, Long> count;
-        JavaPairRDD<String, Long> count1;
+        JavaPairRDD<String, Long> deterministicCount;
+        JavaPairRDD<String, Long> sparkCount;
 
-        count = pairStrings
-                .flatMapToPair((document) -> {    // <-- MAP PHASE (R1) - Transform each document into a set of
-                                                  //     key-value pairs
+        deterministicCount = pairStrings
+                .flatMapToPair((document) -> {    // <-- MAP PHASE (R1)
                     String[] tokens = document.split(" ");
                     HashMap<Integer, Tuple2<String, String>> counts = new HashMap<>();
                     ArrayList<Tuple2<Integer, Tuple2<String, String>>> pairs = new ArrayList<>();
-                    counts.put(Integer.parseInt(tokens[0]), new Tuple2<>(tokens[0], tokens[1]));
+                    counts.put(Integer.parseInt(tokens[0]), new Tuple2<>(tokens[0], tokens[1])); // (i, (i-th obj, class)),  0 <= i < N
                     for (Map.Entry<Integer, Tuple2<String, String>> e : counts.entrySet()) {
-                        pairs.add(new Tuple2<>(e.getKey()%K, e.getValue()));
+                        pairs.add(new Tuple2<>(e.getKey()%K, e.getValue())); //(i mod K, (i-th obj, class))
                     }
                     return pairs.iterator();
                 })
@@ -49,32 +48,34 @@ public class G31HW1 {
                     HashMap<String, Long> counts = new HashMap<>();
                     ArrayList<Tuple2<String, Long>> pairs = new ArrayList<>();
                     for (Tuple2<String, String> c : triplet._2()) {
-                        counts.put(c._2(), 1L + counts.getOrDefault(c._2(), 0L));
+                        counts.put(c._2(), 1L + counts.getOrDefault(c._2(), 0L)); // for each 0 <= j < K gather the set S_j of all intermediate pairs with key j
                     }
                     for (Map.Entry<String, Long> e : counts.entrySet()) {
-                        pairs.add(new Tuple2<>(e.getKey(), e.getValue()));
+                        pairs.add(new Tuple2<>(e.getKey(), e.getValue())); // for each class labeling some object in S_j, produce the pair (class, c_j(class)),
+                                                                           // where c_j(class) is the number of objects of S_j labeled with class
                     }
                     return pairs.iterator();
                 })
                 .groupByKey()    // <-- REDUCE PHASE (R2)
                 .mapValues((it) -> {
                     long sum = 0;
+                    // for each class gather the at most K pairs (class, c_j(class)) resulting at the end of the previous round and return the output pair (class, sum_j(c_j(class))
                     for (long c : it) {
                         sum += c;
                     }
                     return sum;
                 });
         System.out.print("OUTPUT:\n\n" + "VERSION WITH DETERMINISTIC PARTITIONS\n" + "Output pairs = ");
-        count.sortByKey().collect().forEach(System.out::print);
+        deterministicCount.sortByKey().collect().forEach(System.out::print);
 
-        count1 = pairStrings
+        sparkCount = pairStrings
                 .flatMapToPair((document) -> {    // <-- MAP PHASE (R1)
                     String[] tokens = document.split(" ");
                     HashMap<Integer, Tuple2<String, String>> counts = new HashMap<>();
                     ArrayList<Tuple2<Integer, Tuple2<String, String>>> pairs = new ArrayList<>();
                     counts.put(Integer.parseInt(tokens[0]), new Tuple2<>(tokens[0], tokens[1]));
                     for (Map.Entry<Integer, Tuple2<String, String>> e : counts.entrySet()) {
-                        pairs.add(new Tuple2<>((int) (e.getKey() % sqrt(N)), e.getValue())); // (i mod sqrt(N), (obj, class))
+                        pairs.add(new Tuple2<>((int) (e.getKey() % sqrt(N)), e.getValue())); // (i mod sqrt(N), (i-th obj, class))
                     }
                     return pairs.iterator();
                 })
@@ -84,11 +85,12 @@ public class G31HW1 {
                     while (wc.hasNext()){
                         numPairs++;
                         Tuple2<Integer, Tuple2<String, String>> tuple = wc.next();
-                        counts.put(tuple._2._2, 1L + counts.getOrDefault(tuple._2._2, 0L));
+                        counts.put(tuple._2._2, 1L + counts.getOrDefault(tuple._2._2, 0L)); // for each 0 <= j < sqrt(N) gather the set S_j of all intermediate pairs with key j
                     }
                     ArrayList<Tuple2<String, Long>> pairs = new ArrayList<>();
                     for (Map.Entry<String, Long> e : counts.entrySet()) {
-                        pairs.add(new Tuple2<>(e.getKey(), e.getValue()));
+                        pairs.add(new Tuple2<>(e.getKey(), e.getValue())); // for each class labeling some object in S_j, produce the pair (class, c_j(class)),
+                                                                           // where c_j(class) is the number of objects of S_j labeled with class
                     }
                     // In order to be able to compute the max partition size, we add a special pair ("maxPartitionSize", N_max)
                     pairs.add((new Tuple2<>("maxPartitionSize", numPairs)));
@@ -96,18 +98,18 @@ public class G31HW1 {
                 })
                 .groupByKey()
                 .mapToPair((it) -> {
-                    ArrayList<Long> acc = new ArrayList<>();
+                    ArrayList<Long> acc = new ArrayList<>(); // temporary variable to handle Collections methods max() and sum()
                     it._2.forEach(acc::add);
-                    if (it._1().equals("maxPartitionSize")) {
+                    if (it._1().equals("maxPartitionSize")) { // if key is "maxPartitionSize" return output pair ("maxPartitionSize", N_max)
                         return new Tuple2<>(it._1, Collections.max(acc));
-                    } else {
-                        return new Tuple2<>(it._1(), acc.stream().mapToLong(x -> x).sum());
+                    } else { // otherwise return the output pair (class, sum_j(c_j(class))
+                        return new Tuple2<>(it._1, acc.stream().mapToLong(x -> x).sum());
                     }
                 });
 
         // For the most frequent class, ties must be broken in favor of the smaller class in alphabetical order
         System.out.println("\nVERSION WITH SPARK PARTITIONS\n" +
-                "Most frequent class = " + count1.sortByKey().reduce((acc, value) -> ((value._2 > acc._2) ? value : acc)) +
-                "\n" + "Max partition size = " + count1.filter((tuple) -> (tuple._1.equals("maxPartitionSize"))).first()._2);
+                "Most frequent class = " + sparkCount.sortByKey().reduce((acc, value) -> ((value._2 > acc._2) ? value : acc)) +
+                "\n" + "Max partition size = " + sparkCount.filter((tuple) -> (tuple._1.equals("maxPartitionSize"))).first()._2);
     }
 }
