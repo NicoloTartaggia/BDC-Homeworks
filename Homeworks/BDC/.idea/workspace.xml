@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6d8e518-6579-4093-a5bc-d039b87b53af" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Homework1/BDC/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Homework1/BDC/dataset.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Homework1/BDC/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Homework1/BDC/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Homework1/BDC/input_10000.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Homework1/BDC/src/main/java/G31HW1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Homework1/BDC/src/main/java/TemplateHW1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Homework2/dataset/aircraft-mainland.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Homework2/dataset/uber-large.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Homework2/dataset/uber-medium.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Homework2/dataset/uber-small.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hw2_input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/hw2_input.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/G31HW2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/G31HW2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +114,8 @@
       <workItem from="1588101268785" duration="8000" />
       <workItem from="1588104245256" duration="1321000" />
       <workItem from="1588105571173" duration="2000" />
-      <workItem from="1588105673009" duration="33000" />
+      <workItem from="1588105673009" duration="808000" />
+      <workItem from="1588157759580" duration="4568000" />
     </task>
     <servers />
   </component>
@@ -134,11 +127,11 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="555" y="214" width="847" height="677" key="#Project_Structure/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1585588745251" />
-    <state x="530" y="246" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588105174541">
+    <state x="530" y="246" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588159688836">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="418" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1585594462865" />
-    <state x="530" y="246" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1588105174541" />
+    <state x="530" y="246" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1588159688836" />
     <state x="766" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.3520.1053@0.27.3520.1053" timestamp="1585782058433" />
     <state x="743" y="260" width="424" height="584" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1585589621084">
       <screen x="0" y="27" width="1920" height="1053" />
@@ -149,29 +142,29 @@
     </state>
     <state x="692" y="338" width="525" height="428" key="#com.intellij.ide.util.TreeClassChooserDialog/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1585589605499" />
     <state x="692" y="338" width="525" height="416" key="#com.intellij.ide.util.TreeClassChooserDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1588104372937" />
-    <state width="1874" height="223" key="GridCell.Tab.0.bottom" timestamp="1587139518952">
+    <state width="1874" height="223" key="GridCell.Tab.0.bottom" timestamp="1588162328464">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="1874" height="223" key="GridCell.Tab.0.bottom/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1585916534335" />
-    <state width="1874" height="223" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1587139518952" />
+    <state width="1874" height="223" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1588162328464" />
     <state width="1874" height="223" key="GridCell.Tab.0.bottom/0.27.3520.1053@0.27.3520.1053" timestamp="1585784292245" />
-    <state width="1874" height="223" key="GridCell.Tab.0.center" timestamp="1587139518951">
+    <state width="1874" height="223" key="GridCell.Tab.0.center" timestamp="1588162328463">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="1874" height="223" key="GridCell.Tab.0.center/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1585916534335" />
-    <state width="1874" height="223" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1587139518951" />
+    <state width="1874" height="223" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1588162328463" />
     <state width="1874" height="223" key="GridCell.Tab.0.center/0.27.3520.1053@0.27.3520.1053" timestamp="1585784292245" />
-    <state width="1874" height="223" key="GridCell.Tab.0.left" timestamp="1587139518951">
+    <state width="1874" height="223" key="GridCell.Tab.0.left" timestamp="1588162328462">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="1874" height="223" key="GridCell.Tab.0.left/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1585916534335" />
-    <state width="1874" height="223" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1587139518951" />
+    <state width="1874" height="223" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1588162328462" />
     <state width="1874" height="223" key="GridCell.Tab.0.left/0.27.3520.1053@0.27.3520.1053" timestamp="1585784292244" />
-    <state width="1874" height="223" key="GridCell.Tab.0.right" timestamp="1587139518952">
+    <state width="1874" height="223" key="GridCell.Tab.0.right" timestamp="1588162328464">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="1874" height="223" key="GridCell.Tab.0.right/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1585916534335" />
-    <state width="1874" height="223" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1587139518952" />
+    <state width="1874" height="223" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1588162328464" />
     <state width="1874" height="223" key="GridCell.Tab.0.right/0.27.3520.1053@0.27.3520.1053" timestamp="1585784292245" />
     <state x="551" y="316" width="1024" height="845" key="SettingsEditor" timestamp="1587136820874">
       <screen x="0" y="27" width="1920" height="1053" />
@@ -191,6 +184,10 @@
     </state>
     <state x="616" y="380" key="com.intellij.ide.util.TipDialog/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1585914025239" />
     <state x="616" y="380" key="com.intellij.ide.util.TipDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1586278194777" />
+    <state x="642" y="244" width="626" height="616" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1588159135701">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="642" y="244" width="626" height="616" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.27.1920.1053@0.27.1920.1053" timestamp="1588159135701" />
     <state x="728" y="472" width="454" height="160" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585648233988">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
