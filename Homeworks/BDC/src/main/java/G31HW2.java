@@ -38,7 +38,7 @@ public class G31HW2 {
         double maxDistance = 0;
         for (Vector v1 : s) {
             for (Vector v2 : s) {
-                double currentDistance = Vectors.sqdist(v1, v2);
+                double currentDistance = Math.sqrt(Vectors.sqdist(v1, v2));
                 if (currentDistance > maxDistance) {
                     maxDistance = currentDistance;
                 }
@@ -47,14 +47,14 @@ public class G31HW2 {
         return maxDistance;
     }
 
-    //// 2-approximation algorithm
+    // 2-approximation algorithm
     //public static int twoApproxMPD(ArrayList<Vector> s, int k) {
-//
+
     //}
-//
-    //// k-center-based algorithm
+
+    // k-center-based algorithm
     //public static ArrayList<Vector> kCenterMPD(ArrayList<Vector> s, int k) {
-//
+
     //}
 
     public static void main(String[] args) throws IOException {
@@ -70,22 +70,22 @@ public class G31HW2 {
         double exactMaxDistance1 = exactMPD(inputPoints);
         System.out.println("Max distance = " + exactMaxDistance1 +
                            "\nRunning time = " + (System.currentTimeMillis() - startTime1) + "\n");
-//
-        //// 2-approximation algorithm output
+
+        // 2-approximation algorithm output
         //System.out.println("2-APPROXIMATION ALGORITHM");
         //long startTime2 = System.currentTimeMillis();
         //int approxMaxDistance = twoApproxMPD(inputPoints, k);
-        //System.out.println("k" + k +
+        //System.out.println("k = " + k +
         //                   "\nMax distance = " + approxMaxDistance +
-        //                   "\nRunning time = " + ((int)System.currentTimeMillis() - startTime2) + "\n");
-//
-        //// k-center-based algorithm output
+        //                   "\nRunning time = " + (intSystem.currentTimeMillis() - startTime2) + "\n");
+
+        // k-center-based algorithm output
         //System.out.println("k-CENTER-BASED ALGORITHM");
         //long startTime3 = System.currentTimeMillis();
         //ArrayList<Vector> centers = kCenterMPD(inputPoints, k);
         //int exactMaxDistance2 = exactMPD(centers);
-        //System.out.println("k" + k +
+        //System.out.println("k = " + k +
         //                   "\nMax distance = " + exactMaxDistance2 +
-        //                   "\nRunning time = " + ((int)System.currentTimeMillis() - startTime3) + "\n");
+        //                   "\nRunning time = " + (System.currentTimeMillis() - startTime3) + "\n");
     }
 }
