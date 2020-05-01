@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Random;
 
 import org.apache.spark.mllib.linalg.Vector;
 import org.apache.spark.mllib.linalg.Vectors;
@@ -11,6 +12,8 @@ import org.apache.spark.mllib.linalg.Vectors;
 //   Even if the datasets that we provided to test the program are in 2 dimensions, the program must work as well for datasets in R^d for arbitrary d.
 // - Running times of all methods must be expressed in milliseconds.
 public class G31HW2 {
+
+    private static final long SEED = 1237784;
 
     // Auxiliary methods
     public static Vector strToVector (String str) {
@@ -48,14 +51,29 @@ public class G31HW2 {
     }
 
     // 2-approximation algorithm
-    //public static int twoApproxMPD(ArrayList<Vector> s, int k) {
-
-    //}
+    public static double twoApproxMPD(ArrayList<Vector> s, int k) {
+        Random rand = new Random(); // Initialize random object
+        rand.setSeed(SEED); // Set its seed
+        ArrayList<Vector> s1 = new ArrayList<>();
+        for (int i = 0; i<k; i = i+1) {
+            s1.add(s.get(rand.nextInt(s.size())));  // Adding k random point from s to s1
+        }
+        double maxDistance = 0;
+        for (Vector v1 : s1) {
+            for (Vector v2 : s) {
+                double currentDistance = Math.sqrt(Vectors.sqdist(v1, v2));
+                if (currentDistance > maxDistance) {
+                    maxDistance = currentDistance;
+                }
+            }
+        }
+        return maxDistance;
+    }
 
     // k-center-based algorithm
     public static ArrayList<Vector> kCenterMPD(ArrayList<Vector> s, int k) {
         ArrayList<Vector> c = new ArrayList<>(); // centers
-        int rand = (int) (Math.random() * s.size()); // random index for the firt center selection
+        int rand = (int) (Math.random() * s.size()); // random index for the first center selection
         c.add(s.remove(rand));
         Double[][] distances = new Double[k][s.size()]; // distances between centers and other points, each row represents the distance
         for (int i = 0; i < (k - 1); i++){
@@ -92,12 +110,12 @@ public class G31HW2 {
                            "\nRunning time = " + (System.currentTimeMillis() - startTime1) + "\n");
 
         // 2-approximation algorithm output
-        //System.out.println("2-APPROXIMATION ALGORITHM");
-        //long startTime2 = System.currentTimeMillis();
-        //int approxMaxDistance = twoApproxMPD(inputPoints, k);
-        //System.out.println("k = " + k +
-        //                   "\nMax distance = " + approxMaxDistance +
-        //                   "\nRunning time = " + (intSystem.currentTimeMillis() - startTime2) + "\n");
+        System.out.println("2-APPROXIMATION ALGORITHM");
+        long startTime2 = System.currentTimeMillis();
+        double approxMaxDistance = twoApproxMPD(inputPoints, k);
+        System.out.println("k = " + k +
+                           "\nMax distance = " + approxMaxDistance +
+                           "\nRunning time = " + (System.currentTimeMillis() - startTime2) + "\n");
 
         // k-center-based algorithm output
         System.out.println("k-CENTER-BASED ALGORITHM");
