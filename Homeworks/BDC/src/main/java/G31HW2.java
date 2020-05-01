@@ -54,17 +54,17 @@ public class G31HW2 {
 
     // k-center-based algorithm
     public static ArrayList<Vector> kCenterMPD(ArrayList<Vector> s, int k) {
-        ArrayList<Vector> c = new ArrayList<>();
-        int rand = (int) (Math.random() * s.size());
+        ArrayList<Vector> c = new ArrayList<>(); // centers
+        int rand = (int) (Math.random() * s.size()); // random index for the firt center selection
         c.add(s.remove(rand));
-        Double[][] distances = new Double[k][s.size()]; // distances between centers and other points
+        Double[][] distances = new Double[k][s.size()]; // distances between centers and other points, each row represents the distance
         for (int i = 0; i < (k - 1); i++){
             double maxDistance = 0;
             int maxIndex = 0;
             for (int j = 0; j < s.size(); j++) {
                 double currentDistance = Math.sqrt(Vectors.sqdist(c.get(i), s.get(j))); // compute all distances between the i-th center and {s - c} points
                 if (i > 0)
-                    distances[i][j] = currentDistance + distances[i-1][j]; // compute all distances between all centers in c and {s - c} points
+                    distances[i][j] = currentDistance + distances[i-1][j]; // compute all distances  between {c_1, .., c_i} and the set {s - c}
                 else
                     distances[i][j] = currentDistance ; // compute all distances between the first center and {s - c} points
                 if (distances[i][j] > maxDistance) {
@@ -72,9 +72,8 @@ public class G31HW2 {
                     maxIndex = j;
                 }
             }
-            c.add(s.remove(maxIndex));
+            c.add(s.remove(maxIndex)); // add the new center to c and remove it from s
         }
-        //System.out.println(c);
         return c;
     }
 
