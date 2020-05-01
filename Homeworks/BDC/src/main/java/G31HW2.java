@@ -53,9 +53,30 @@ public class G31HW2 {
     //}
 
     // k-center-based algorithm
-    //public static ArrayList<Vector> kCenterMPD(ArrayList<Vector> s, int k) {
-
-    //}
+    public static ArrayList<Vector> kCenterMPD(ArrayList<Vector> s, int k) {
+        ArrayList<Vector> c = new ArrayList<>();
+        int rand = (int) (Math.random() * s.size());
+        c.add(s.remove(rand));
+        Double[][] distances = new Double[k][s.size()]; // distances between centers and other points
+        for (int i = 0; i < (k - 1); i++){
+            double maxDistance = 0;
+            int maxIndex = 0;
+            for (int j = 0; j < s.size(); j++) {
+                double currentDistance = Math.sqrt(Vectors.sqdist(c.get(i), s.get(j))); // compute all distances between the i-th center and {s - c} points
+                if (i > 0)
+                    distances[i][j] = currentDistance + distances[i-1][j]; // compute all distances between all centers in c and {s - c} points
+                else
+                    distances[i][j] = currentDistance ; // compute all distances between the first center and {s - c} points
+                if (distances[i][j] > maxDistance) {
+                    maxDistance = distances[i][j];
+                    maxIndex = j;
+                }
+            }
+            c.add(s.remove(maxIndex));
+        }
+        //System.out.println(c);
+        return c;
+    }
 
     public static void main(String[] args) throws IOException {
         // Reading points from a file whose name is provided as args[0]
@@ -80,12 +101,12 @@ public class G31HW2 {
         //                   "\nRunning time = " + (intSystem.currentTimeMillis() - startTime2) + "\n");
 
         // k-center-based algorithm output
-        //System.out.println("k-CENTER-BASED ALGORITHM");
-        //long startTime3 = System.currentTimeMillis();
-        //ArrayList<Vector> centers = kCenterMPD(inputPoints, k);
-        //int exactMaxDistance2 = exactMPD(centers);
-        //System.out.println("k = " + k +
-        //                   "\nMax distance = " + exactMaxDistance2 +
-        //                   "\nRunning time = " + (System.currentTimeMillis() - startTime3) + "\n");
+        System.out.println("k-CENTER-BASED ALGORITHM");
+        long startTime3 = System.currentTimeMillis();
+        ArrayList<Vector> centers = kCenterMPD(inputPoints, k);
+        double exactMaxDistance2 = exactMPD(centers);
+        System.out.println("k = " + k +
+                          "\nMax distance = " + exactMaxDistance2 +
+                          "\nRunning time = " + (System.currentTimeMillis() - startTime3) + "\n");
     }
 }
