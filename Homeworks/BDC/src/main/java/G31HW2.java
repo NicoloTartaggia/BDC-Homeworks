@@ -56,7 +56,7 @@ public class G31HW2 {
         rand.setSeed(SEED); // Set its seed
         ArrayList<Vector> s1 = new ArrayList<>();
         for (int i = 0; i<k; i = i+1) {
-            s1.add(s.get(rand.nextInt(s.size())));  // Adding k random point from s to s1
+            s1.add(s.remove(rand.nextInt(s.size())));  // Adding k random point from s to s1
         }
         double maxDistance = 0;
         for (Vector v1 : s1) {
@@ -99,31 +99,33 @@ public class G31HW2 {
         // Reading points from a file whose name is provided as args[0]
         String filename = args[0];
         int k = Integer.parseInt(args[1]);
-        ArrayList<Vector> inputPoints = new ArrayList<>();
-        inputPoints = readVectorsSeq(filename); // inputPoints = [[x1,y1], [x2,y2],..., [xn,yn]]
+        ArrayList<Vector> inputPoints = readVectorsSeq(filename);
 
         // Exact algorithm output
         System.out.println("EXACT ALGORITHM");
-        long startTime1 = System.currentTimeMillis();
+        long startTime1 = System.nanoTime();
         double exactMaxDistance1 = exactMPD(inputPoints);
+        long estimatedTime1 = System.nanoTime() - startTime1;
         System.out.println("Max distance = " + exactMaxDistance1 +
-                           "\nRunning time = " + (System.currentTimeMillis() - startTime1) + "\n");
+                               "\nRunning time = " + (estimatedTime1)/1000000 + "\n");
 
         // 2-approximation algorithm output
         System.out.println("2-APPROXIMATION ALGORITHM");
-        long startTime2 = System.currentTimeMillis();
+        long startTime2 = System.nanoTime();
         double approxMaxDistance = twoApproxMPD(inputPoints, k);
+        long estimatedTime2 = System.nanoTime() - startTime2;
         System.out.println("k = " + k +
                            "\nMax distance = " + approxMaxDistance +
-                           "\nRunning time = " + (System.currentTimeMillis() - startTime2) + "\n");
+                           "\nRunning time = " + (estimatedTime2)/1000000 + "\n");
 
         // k-center-based algorithm output
         System.out.println("k-CENTER-BASED ALGORITHM");
-        long startTime3 = System.currentTimeMillis();
+        long startTime3 = System.nanoTime();
         ArrayList<Vector> centers = kCenterMPD(inputPoints, k);
         double exactMaxDistance2 = exactMPD(centers);
+        long estimatedTime3 = System.nanoTime() - startTime3;
         System.out.println("k = " + k +
                           "\nMax distance = " + exactMaxDistance2 +
-                          "\nRunning time = " + (System.currentTimeMillis() - startTime3) + "\n");
+                          "\nRunning time = " + (estimatedTime3)/1000000 + "\n");
     }
 }
