@@ -6,11 +6,7 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-Homeworks/.idea/
-Homeworks/BDC/.idea
-Homeworks/BDC/.gradle/
-Homeworks/BDC/gradle/
-Homeworks/BDC/build/
+
 
 # Generated files
 .idea/**/contentModel.xml
@@ -25,6 +21,8 @@ Homeworks/BDC/build/
 .idea/**/dbnavigator.xml
 
 # Gradle
+.gradle/
+Homeworks/BDC/.gradle/
 .idea/**/gradle.xml
 .idea/**/libraries
 
