@@ -118,20 +118,29 @@ public class G31HW3 {
     }
 
     public static ArrayList<Vector> runMapReduce(JavaRDD<Vector> pointsRDD, int k, int L) {
-        ArrayList<Vector> x = new ArrayList<>();
-        pointsRDD.mapPartitions((p) -> {
+        long currentTime = System.nanoTime();
+        ArrayList<Vector> coreset = new ArrayList<>(pointsRDD.mapPartitions((p) -> { // R1
             ArrayList<Vector> partition = new ArrayList<>(); // centers
             while (p.hasNext()) {
-                //System.out.println(p.next());
                 partition.add(p.next());
             }
-            System.out.println("Stop partition");
             return kCenterMPD(partition, k).iterator();
-        }).collect();
-        return x;
+        }).collect());
+        System.out.println("Runtime of Round 1 = " + (System.nanoTime() - currentTime)/1000000);
+        currentTime = System.nanoTime();
+        ArrayList<Vector> twoApproxSolution = runSequential(coreset, k); // R2
+        System.out.println("Runtime of Round 2 = " + (System.nanoTime() - currentTime)/1000000);
+        return twoApproxSolution;
     }
 
-    //public static int measure(ArrayList<Vector> pointsSet) {}
+    public static double measure(ArrayList<Vector> pointSet) {
+        double sum = 0;
+        for(Vector p1: pointSet)
+            for(Vector p2: pointSet)
+                sum += Vectors.sqdist(p1, p2);
+        double k = pointSet.size();
+        return sum / ((k * ( k - 1 )) / 2);
+    }
 
     public static void main(String[] args) throws IOException {
 
@@ -160,12 +169,10 @@ public class G31HW3 {
 
         // runMapReduce solution
         ArrayList<Vector> solution = runMapReduce(inputPoints, k, L);
-        System.out.println("Runtime of Round 1 = " +
-                           "Runtime of Round 2 = ");
 
         // Average distance
-        //int averageDistance = measure(solution);
-        //System.out.println("Average distance = " + averageDistance);
+        double averageDistance = measure(solution);
+        System.out.println("Average distance = " + averageDistance);
 
     }
 }
