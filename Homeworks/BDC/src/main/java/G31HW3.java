@@ -7,8 +7,12 @@ import org.apache.spark.mllib.linalg.Vectors;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class G31HW3 {
+
+    static long SEED = 1237784;
+    static Random generator = new Random(SEED);
 
     public static ArrayList<Vector> runSequential(final ArrayList<Vector> points, int k) {
 
@@ -91,7 +95,8 @@ public class G31HW3 {
     // k-center-based algorithm
     public static ArrayList<Vector> kCenterMPD(ArrayList<Vector> s, int k) {
         ArrayList<Vector> c = new ArrayList<>(); // centers
-        int rand = (int) (Math.random() * s.size()); // random index for the first center selection
+        //int rand = (int) (Math.random() * s.size());
+        int rand = generator.nextInt(s.size()); // random index for the first center selection
         c.add(s.remove(rand));
         for (int i = 0; i < (k - 1); i++){ // selects a center for each iteration
             ArrayList<ArrayList<Vector>> currentPartitions = Partition(s, c); // assign the input points to the partitions
@@ -135,11 +140,13 @@ public class G31HW3 {
 
     public static double measure(ArrayList<Vector> pointSet) {
         double sum = 0;
-        for(Vector p1: pointSet)
-            for(Vector p2: pointSet)
-                sum += Math.sqrt(Vectors.sqdist(p1, p2));
         double k = pointSet.size();
-        return (sum / ((k * ( k - 1 )) / 2)) / 2;
+        for (int i =0; i < k; i++) {
+            for (int j = i+1; j < k; j++) {
+                sum += Math.sqrt(Vectors.sqdist(pointSet.get(i), pointSet.get(j)));
+            }
+        }
+        return sum / ((k * ( k - 1 )) / 2);
     }
 
     public static void main(String[] args) throws IOException {
