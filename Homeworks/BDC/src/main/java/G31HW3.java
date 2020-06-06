@@ -83,7 +83,7 @@ public class G31HW3 {
                     centerIndex = j;
                 }
             }
-            partitions.get(centerIndex).add(point); // assing the point
+            partitions.get(centerIndex).add(point); // assign the point
         }
         return partitions;
     }
@@ -137,9 +137,9 @@ public class G31HW3 {
         double sum = 0;
         for(Vector p1: pointSet)
             for(Vector p2: pointSet)
-                sum += Vectors.sqdist(p1, p2);
+                sum += Math.sqrt(Vectors.sqdist(p1, p2));
         double k = pointSet.size();
-        return sum / ((k * ( k - 1 )) / 2);
+        return (sum / ((k * ( k - 1 )) / 2)) / 2;
     }
 
     public static void main(String[] args) throws IOException {
