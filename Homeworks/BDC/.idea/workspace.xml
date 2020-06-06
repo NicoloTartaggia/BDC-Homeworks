@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6d8e518-6579-4093-a5bc-d039b87b53af" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,9 +20,28 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BDC" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BDC" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BDC" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="shadow" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -57,7 +78,7 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
-  <component name="RunManager" selected="Application.G31HW3">
+  <component name="RunManager" selected="Gradle.BDC [shadowJar]">
     <configuration name="G31HW1" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="G31HW1" />
       <module name="BDC.main" />
@@ -85,13 +106,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="BDC [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="shadowJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Application.G31HW1" />
       <item itemvalue="Application.G31HW3" />
       <item itemvalue="Application.G31HW2" />
+      <item itemvalue="Gradle.BDC [shadowJar]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.BDC [shadowJar]" />
         <item itemvalue="Application.G31HW2" />
       </list>
     </recent_temporary>
@@ -147,6 +189,7 @@
       <workItem from="1589732775597" duration="4025000" />
       <workItem from="1589736971392" duration="10000" />
       <workItem from="1591274474719" duration="2533000" />
+      <workItem from="1591458287105" duration="1824000" />
     </task>
     <servers />
   </component>
@@ -178,32 +221,32 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="808" y="409" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588257839514" />
-    <state width="1874" height="339" key="GridCell.Tab.0.bottom" timestamp="1589736800577">
+    <state width="1874" height="271" key="GridCell.Tab.0.bottom" timestamp="1591461593324">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588350127841" />
-    <state width="1874" height="339" key="GridCell.Tab.0.bottom/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1589736800577" />
+    <state width="1874" height="271" key="GridCell.Tab.0.bottom/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1591461593324" />
     <state width="1874" height="339" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1588718500948" />
     <state width="1874" height="223" key="GridCell.Tab.0.bottom/0.27.3520.1053@0.27.3520.1053" timestamp="1585784292245" />
-    <state width="1874" height="339" key="GridCell.Tab.0.center" timestamp="1589736800577">
+    <state width="1874" height="271" key="GridCell.Tab.0.center" timestamp="1591461593324">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588350127841" />
-    <state width="1874" height="339" key="GridCell.Tab.0.center/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1589736800577" />
+    <state width="1874" height="271" key="GridCell.Tab.0.center/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1591461593324" />
     <state width="1874" height="339" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1588718500947" />
     <state width="1874" height="223" key="GridCell.Tab.0.center/0.27.3520.1053@0.27.3520.1053" timestamp="1585784292245" />
-    <state width="1874" height="339" key="GridCell.Tab.0.left" timestamp="1589736800577">
+    <state width="1874" height="271" key="GridCell.Tab.0.left" timestamp="1591461593324">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588350127841" />
-    <state width="1874" height="339" key="GridCell.Tab.0.left/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1589736800577" />
+    <state width="1874" height="271" key="GridCell.Tab.0.left/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1591461593324" />
     <state width="1874" height="339" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1588718500947" />
     <state width="1874" height="223" key="GridCell.Tab.0.left/0.27.3520.1053@0.27.3520.1053" timestamp="1585784292244" />
-    <state width="1874" height="339" key="GridCell.Tab.0.right" timestamp="1589736800577">
+    <state width="1874" height="271" key="GridCell.Tab.0.right" timestamp="1591461593324">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588350127841" />
-    <state width="1874" height="339" key="GridCell.Tab.0.right/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1589736800577" />
+    <state width="1874" height="271" key="GridCell.Tab.0.right/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1591461593324" />
     <state width="1874" height="339" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1588718500947" />
     <state width="1874" height="223" key="GridCell.Tab.0.right/0.27.3520.1053@0.27.3520.1053" timestamp="1585784292245" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1588325837551">
@@ -222,11 +265,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588325837551" />
-    <state x="551" y="205" width="1024" height="845" key="SettingsEditor" timestamp="1588257974676">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="443" y="130" width="1024" height="845" key="SettingsEditor" timestamp="1591458487459">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="551" y="205" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1588257974676" />
-    <state x="443" y="130" width="1024" height="845" key="SettingsEditor/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1585588863288" />
+    <state x="443" y="130" width="1024" height="845" key="SettingsEditor/0.27.1920.1053/1920.180.1600.900@0.27.1920.1053" timestamp="1591458487459" />
     <state x="551" y="316" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1587136820874" />
     <state x="689" y="286" width="540" height="524" key="StructurePopup" timestamp="1585661124208">
       <screen x="0" y="27" width="1920" height="1053" />
