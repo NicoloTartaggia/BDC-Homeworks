@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6d8e518-6579-4093-a5bc-d039b87b53af" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -146,7 +147,6 @@
       <workItem from="1589732775597" duration="4025000" />
       <workItem from="1589736971392" duration="10000" />
       <workItem from="1591274474719" duration="2533000" />
-      <workItem from="1591277607788" duration="794000" />
     </task>
     <servers />
   </component>
