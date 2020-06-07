@@ -67,48 +67,24 @@ public class G31HW3 {
 
     } // END runSequential
 
-    // best k-clustering around these centers is the one where each point is assigned to the cluster of the closest center
-    // p: {pointset - s}, s: k centers
-    public static ArrayList<ArrayList<Vector>> Partition (ArrayList<Vector> p, ArrayList<Vector> s) {
-        ArrayList<ArrayList<Vector>> partitions = new ArrayList<>();  // each ArrayList<Vector> is a partition e contains its point
-        for (Vector center : s) { // initialize the partitions
-            ArrayList<Vector> partition = new ArrayList<>();
-            partition.add(center); // add the center as first element of the partition
-            partitions.add(partition);
-            p.remove(center); // remove the center from all points
-        }
-        for (Vector point : p) { // assign the points to the correct partition
-            double minDistance = Double.POSITIVE_INFINITY;
-            int centerIndex = 0;
-            for (int j = 0; j < s.size(); j++) {  // find the point with minimum distance
-                double currentDistance = Math.sqrt(Vectors.sqdist(point, s.get(j)));
-                if (currentDistance < minDistance) {
-                    minDistance = currentDistance;
-                    centerIndex = j;
-                }
-            }
-            partitions.get(centerIndex).add(point); // assign the point
-        }
-        return partitions;
-    }
-
     // k-center-based algorithm
     public static ArrayList<Vector> kCenterMPD(ArrayList<Vector> s, int k) {
         ArrayList<Vector> c = new ArrayList<>(); // centers
-        //int rand = (int) (Math.random() * s.size());
-        int rand = generator.nextInt(s.size()); // random index for the first center selection
-        c.add(s.remove(rand));
+        int rand = (int) (Math.random() * s.size()); // random index for the first center selection
+        c.add(s.remove(0));
         for (int i = 0; i < (k - 1); i++){ // selects a center for each iteration
-            ArrayList<ArrayList<Vector>> currentPartitions = Partition(s, c); // assign the input points to the partitions
-            double maxDistance = 0;
+            double max_dist = Double.MIN_VALUE;
             Vector maxItem = null;
-            for (int l = 0; l < currentPartitions.size(); l++) { // find the center which is the point with max distance from its closest center
-                for (int j = 0; j < currentPartitions.get(l).size(); j++) {
-                    double currentDistance = Math.sqrt(Vectors.sqdist(c.get(l), currentPartitions.get(l).get(j)));
-                    if (currentDistance > maxDistance) {
-                        maxDistance = currentDistance;
-                        maxItem = currentPartitions.get(l).get(j);
-                    }
+            for (int j = 0; j < s.size(); j++) { // selects as center the point with maximum distance from its closest center
+                double min_dist = Double.MAX_VALUE;
+                for (int l = 0; l < c.size(); l++) { // d(p, S) = min{q ∈ S : d(p, q)}
+                    double dist = Vectors.sqdist(c.get(l), s.get(j));
+                    if (dist < min_dist)
+                        min_dist = dist;
+                }
+                if (min_dist > max_dist) {
+                    max_dist = min_dist;
+                    maxItem = s.get(j);
                 }
             }
             s.remove(maxItem); // remove the center from s
